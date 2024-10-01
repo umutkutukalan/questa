@@ -1,10 +1,11 @@
 package com.example.questa.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
-import jakarta.persistence.Table;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
@@ -13,7 +14,15 @@ import lombok.Data;
 public class Post {
 	@Id
 	Long id;
-	Long userId;
+	
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id", nullable=false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JsonIgnore
+	User user;	
+	
+	
 	String title;
 	@Lob
 	@Column(columnDefinition = "text")
