@@ -1,13 +1,12 @@
-
+import Post from "./components/Post/Post";
 
 function App() {
 
-  
   return (
     <>
-      <h1>Started..</h1>
+     <Post/>      
     </>
-  )
+  );
 }
 
-export default App
+export default App;
