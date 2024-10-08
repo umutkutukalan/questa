@@ -1,6 +1,7 @@
-
 import { useEffect, useState } from "react";
 import Post from "../Post/Post";
+import { Container } from "@mui/material";
+import { Box } from "@mui/material";
 const Home = () => {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -27,12 +28,24 @@ const Home = () => {
     return <div>Loading..</div>;
   } else {
     return (
-      <div className="flex items-center flex-col">
-        <h1 className="text-2xl text-center">Home!</h1>
-        {postList.map((post, index) => (
-          <Post key={index} title={post.title} text={post.text}></Post>
-        ))}
-      </div>
+      <Container>
+        <Box sx={{ bgcolor: "#cfe8fc", height: "100%", padding: 5 }}>
+          <div className="flex items-center flex-col">
+            <ul className="flex flex-col items-align">
+              {postList.map((post) => (
+                <li key={post.id} className="mt-5">
+                  <Post
+                    title={post.title}
+                    text={post.text}
+                    userId={post.userId}
+                    username={post.username}
+                  ></Post>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Box>
+      </Container>
     );
   }
 };
