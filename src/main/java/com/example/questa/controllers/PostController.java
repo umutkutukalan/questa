@@ -8,10 +8,12 @@ import org.springframework.web.bind.annotation.*;
 import com.example.questa.entity.Post;
 import com.example.questa.requests.PostCreateRequest;
 import com.example.questa.requests.PostUpdateRequest;
+import com.example.questa.responses.PostResponse;
 import com.example.questa.services.PostService;
 
 @RestController
 @RequestMapping("/posts")
+@CrossOrigin
 public class PostController {
 	
 	private PostService postService;
@@ -21,7 +23,7 @@ public class PostController {
 	}
 
 	@GetMapping
-	public List<Post> getAllPosts(@RequestParam Optional<Long> userId){
+	public List<PostResponse> getAllPosts(@RequestParam Optional<Long> userId){
 		return postService.getAllPosts(userId);
 	}
 	

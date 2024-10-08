@@ -2,6 +2,8 @@ package com.example.questa.services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,7 @@ import com.example.questa.repository.PostRepository;
 import com.example.questa.repository.UserRepository;
 import com.example.questa.requests.PostCreateRequest;
 import com.example.questa.requests.PostUpdateRequest;
+import com.example.questa.responses.PostResponse;
 
 @Service
 public class PostService {
@@ -23,12 +26,14 @@ public class PostService {
 		this.userService = userService;
 	}
 
-	public List<Post> getAllPosts(Optional<Long> userId) {
+	public List<PostResponse> getAllPosts(Optional<Long> userId) {
+		List<Post> list;
 		if(userId.isPresent()) {
-			return postRepository.findByUserId(userId);
+			list = postRepository.findByUserId(userId);
 		} else {
-			return postRepository.findAll();
+			list = postRepository.findAll();
 		}
+		return list.stream().map(post -> new PostResponse(post)).collect(Collectors.toList());
 	}
 
 	public Post getOnePostById(Long postId) {
